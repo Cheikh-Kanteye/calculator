@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Dimensions } from "react-native";
 import { ThemeType } from "react-native-magnus";
 
 export const darkTheme: ThemeType = {
@@ -22,6 +23,10 @@ export const lightTheme = {
     text: "#2a2a2a",
   },
 };
+
+export const { width, height } = Dimensions.get("window");
+
+export const KeyboardHeight = height > 720 ? height * 0.61 : height * 0.7;
 
 export const saveThemeName = async (themeName: string) => {
   AsyncStorage.setItem("@theme", themeName);
