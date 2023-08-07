@@ -16,8 +16,8 @@ import { Platform } from "react-native";
 
 export default function App() {
   const [themeName, setThemeName] = useState("light");
-  const [operation, setOperation] = useState("24*12-435=");
-  const [result, setResult] = useState("24.45");
+  const [operation, setOperation] = useState("");
+  const [result, setResult] = useState("");
 
   useEffect(() => {
     async function getTheme() {
@@ -28,13 +28,15 @@ export default function App() {
         .catch((err) => console.error(err));
     }
     getTheme();
+  }, []);
+  useLayoutEffect(() => {
     if (Platform.OS == "android") {
       Navbar.setPositionAsync("absolute");
       Navbar.setBehaviorAsync("overlay-swipe");
       Navbar.setVisibilityAsync("hidden");
       Navbar.setBackgroundColorAsync("transparent");
     }
-  }, []);
+  });
 
   return (
     <ThemeProvider theme={themeName === "light" ? lightTheme : darkTheme}>

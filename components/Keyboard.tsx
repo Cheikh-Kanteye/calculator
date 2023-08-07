@@ -33,19 +33,35 @@ const Keyboard = ({ setOperation, setResult, operation }: KeyboardProps) => {
   };
 
   const handleKeyPress = (key: string) => {
-    if (key === "=") {
+    const evaluate = () => {
       try {
         const calculatedResult = eval(operation);
         setResult(calculatedResult.toString());
       } catch (error) {
         setResult("Error");
       }
-    } else if (key === "AC") {
-      setOperation("");
-      setResult("");
-    } else {
-      setOperation((prevInput) => prevInput + key);
-      setResult("");
+    };
+
+    switch (key) {
+      case "=":
+        evaluate();
+        break;
+      case "±":
+        setOperation((op) => op + "-");
+        evaluate();
+        break;
+      case "÷":
+        setOperation((op) => op + "/");
+        evaluate();
+        break;
+      case "AC":
+        setOperation("");
+        setResult("");
+        break;
+      default:
+        setOperation((prevInput) => prevInput + key);
+        setResult("");
+        break;
     }
   };
 
